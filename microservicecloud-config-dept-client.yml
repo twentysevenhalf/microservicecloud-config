@@ -1,0 +1,78 @@
+spring: 
+  profiles:
+    active:
+    - dev
+--- 
+server:
+  port: 8001
+spring: 
+   profiles: dev
+   application:
+     name: microservicecloud-dept  #暴露给注册中心的服务名，浏览器访问不能加该名称，设置项目访问路径：server.context-path=/microservicecloud-dept
+   datasource:
+     type: com.alibaba.druid.pool.DruidDataSource
+     driver-class-name: com.mysql.jdbc.Driver
+     url: jdbc:mysql://localhost:3306/cloudDB01
+     username: root
+     password: 123456
+     dbcp2:
+       min-idle: 5 #连接池最小连接数
+       initial-size: 5 #初始化连接数
+       max-total: 5  #最大连接数
+       max-wait-millis: 200  #连接最大超时时间
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml  # mybatis配置文件路径
+  type-aliases-package: com.tsh.entities  # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml   # Mapper映射文件,等价于DAO的实现类
+ 
+eureka: 
+  client: #客户端注册进eureka服务列表内
+    service-url: 
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: dept-8001.com
+    prefer-ip-address: true
+ 
+info:
+  app.name: tsh-microservicecloud
+  company.name: www.tsh.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+---
+server:
+  port: 8001
+spring: 
+   profiles: test
+   application:
+     name: microservicecloud-dept  #暴露给注册中心的服务名，浏览器访问不能加该名称，设置项目访问路径：server.context-path=/microservicecloud-dept
+   datasource:
+     type: com.alibaba.druid.pool.DruidDataSource
+     driver-class-name: com.mysql.jdbc.Driver
+     url: jdbc:mysql://localhost:3306/cloudDB02
+     username: root
+     password: 123456
+     dbcp2:
+       min-idle: 5 #连接池最小连接数
+       initial-size: 5 #初始化连接数
+       max-total: 5  #最大连接数
+       max-wait-millis: 200  #连接最大超时时间
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml  # mybatis配置文件路径
+  type-aliases-package: com.tsh.entities  # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml   # Mapper映射文件,等价于DAO的实现类
+ 
+eureka: 
+  client: #客户端注册进eureka服务列表内
+    service-url: 
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: dept-8001.com
+    prefer-ip-address: true
+ 
+info:
+  app.name: tsh-microservicecloud
+  company.name: www.tsh.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
